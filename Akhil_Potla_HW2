@@ -1,0 +1,268 @@
+disp('Problem 1');
+Problem 1
+fprintf('Date and time is %s\n',datestr(now)')
+Date and time is 21-Sep-2016 19:56:08
+A = randi([-3 4], 5,5);
+b = randi([-3 4], 5,1);
+c = randi([-3 4], 1,1);
+A(3,:)=b;
+b = b';
+B = [A;b];
+C = rand(6,5);
+C = C + 5
+
+C =
+
+    5.0318    5.3171    5.7952    5.7547    5.4984
+    5.2769    5.9502    5.1869    5.2760    5.9597
+    5.0462    5.0344    5.4898    5.6797    5.3404
+    5.0971    5.4387    5.4456    5.6551    5.5853
+    5.8235    5.3816    5.6463    5.1626    5.2238
+    5.6948    5.7655    5.7094    5.1190    5.7513
+
+D = B ./C
+
+D =
+
+    0.5962   -0.5642   -0.3451   -0.3475    0.3637
+    0.7580   -0.1681    0.7712         0   -0.5034
+    0.5945    0.3973         0    0.3521   -0.3745
+    0.7848    0.7355         0    0.5305    0.7162
+    0.3434    0.7433    0.5313    0.7748    0.3829
+    0.5268    0.3469         0    0.3907   -0.3477
+
+e = b.^c;
+save('date.mat');
+load('date.mat')
+load('date.mat')
+save('myvariables.txt', 'B', 'C', 'D', 'b', 'e', '-ascii');
+clear alldisp('Problem 2')
+Problem 2
+fid=fopen('HW2_SouthEubankField.txt','r');
+for i = 1:21
+fgetl(fid);
+end
+d = fscanf(fid, '%f');
+l = reshape(d, [717, 15]);
+l = l';
+l = reshape(d, [15, 717]);
+l = l';
+depth = l(:,1);
+maxDepth = max(depth);
+maxDepth
+
+maxDepth =
+
+        5658
+
+minDepth = min(depth);
+minDepth
+
+minDepth =
+
+        5300
+
+numOfDepthPoints = 717;
+gammaray = l(:,5);
+plot(gammaray, depth)
+plot(gammaray, reverse(depth))
+{Undefined function or variable 'reverse'.
+} 
+plot(gammaray, depth)
+xlabel('Gamma Ray')
+ylabel('Depth')
+title('Gamma Ray vs Depth')
+plot(gammaray, depth)
+xlabel('Gamma Ray')
+ylabel('Depth')
+title('Gamma Ray vs Depth')
+p = plot(gammaray, depth);
+xlabel('Gamma Ray')
+ylabel('Depth')
+title('Gamma Ray vs Depth')
+set(p, 'linewidth', 2);
+xlim([min(gammaray) max(gammaray)])
+set(gca, 'YDir', 'reverse')
+% Problem 2d: Depths from 5300 to 5330, 5340 to 5350, 5470 to 5500, 5510, 5560 show good signs of having shale
+NPHI = l(:,6);
+plot(NPHI, depth);
+nphiP = plot(NPHI, depth);
+set(nphiP, 'linewidth', 2);
+xlabel('Neutron Porosity');
+ylabel('Depth')
+title('Neutron Porosity vs Depth')
+set(gca, 'Ydir', 'reverse')
+rt = l(:,15);
+rw = .2;
+a = 1;
+n = 2;
+m = 2;
+sw = (rw * (a)/((nphiP.^m) .*  rt))^(1/n);
+{Undefined operator '.^' for input arguments of type 'matlab.graphics.chart.primitive.Line'.
+}  
+set(swP, 'linewidth', 2);
+set(gca, 'Ydir', 'reverse')
+porosity = NPHI ./ 100;
+sw = (rw / (porosity .* rt)).^5;
+swP = plot(sw, depth);
+swP = plot(sw, depth);
+sw = (rw ./ (porosity .* rt)).^5;
+swP = plot(sw, depth);
+sw = (rw ./ (porosity .* rt)).^.5;
+swP = plot(sw, depth);
+xlabel('Water Saturation')
+ylabel('Depth')
+title('Water Saturation vs Depth')
+set(swP, 'linewidth', 2);
+set(gca, 'Ydir', 'reverse')
+xlim([min(porosity) max(porosity)]);
+swP = plot(sw, depth);
+xlabel('Water Saturation')
+ylabel('Depth')
+title('Water Saturation vs Depth')
+set(swP, 'linewidth', 2);
+set(gca, 'Ydir', 'reverse')
+diary off
+disp('Problem 3');
+Problem 3
+fid1 = fopen('spe_perm.txt', 'r');
+fid2 = fopen('spe_phi.txt','r');
+perm = fscanf(fid1, '%f');
+phi = fscanf(fid2, '%f');
+fclose(fid1);
+fclose(fid2);
+perm = reshape(perm, 30, 110, 43);
+phi = reshape(perm, 30, 110, 43);
+fid2 = fopen('spe_phi.txt','r');
+phi = fscanf(fid2, '%f');
+fclose(fid2);
+phi = reshape(phi, 30, 110, 43);
+% first plot
+% plot a slice through x position 50, y position 10 and z position 20
+h = slice(phi, 50, 10, 20);
+% improve view and plot details
+set(h, 'linestyle', 'none'); % remove lines from the plot axis equal,
+axis tight % make things look proportional
+xlabel('x'); ylabel('y'); zlabel('z');
+% label axes
+colorbar % show the range of data
+% the second plot
+Xslice = [1,110];
+Yslice = [1,30];
+Zslice = [1,43];
+h = slice(phi, Xslice, Yslice, Zslice);
+h = slice(phi, 50, 10, 20);
+set(h, 'linestyle', 'none'); % remove lines from the plot axis equal,
+axis tight % make things look proportional
+xlabel('x'); ylabel('y'); zlabel('z');
+colorbar % show the range of data
+% the second plot
+Xslice = [1,110];
+Yslice = [1,30];
+Zslice = [1,43];
+h = slice(phi, Xslice, Yslice, Zslice);
+h = slice(phi, Xslice, Yslice, Zslice);
+xlabel('x'); ylabel('y'); zlabel('z');
+h = slice(phi, Xslice, Yslice, Zslice);
+xlabel('x'); ylabel('y'); zlabel('z');
+colorbar % show the range of data
+h = slice(perm, 50, 10, 20);
+set(h, 'linestyle', 'none'); % remove lines from the plot axis equal,
+axis tight % make things look proportional
+xlabel('x'); ylabel('y'); zlabel('z');
+colorbar % show the range of data
+Xslice = [1,110];
+Yslice = [1,30];
+Zslice = [1,43];
+h = slice(phi, Xslice, Yslice, Zslice);
+h = slice(perm, Xslice, Yslice, Zslice);
+xlabel('x'); ylabel('y'); zlabel('z');
+colorbar % show the range of data
+set(h, 'linestyle', 'none'); % remove lines from the plot axis equal,
+% I can see the Tarbet Formation near the top, and I can see Upper Ness near the bottom
+h = slice(phi, Xslice, Yslice, Zslice);
+xlabel('x'); ylabel('y'); zlabel('z');
+colorbar % show the range of data
+axis tight % make things look proportional
+set(h, 'linestyle', 'none'); % remove lines from the plot axis equal,
+h = slice(perm, Xslice, Yslice, Zslice);
+xlabel('x'); ylabel('y'); zlabel('z');
+colorbar % show the range of data
+axis tight % make things look proportional
+set(h, 'linestyle', 'none'); % remove lines from the plot axis equal,
+surf(Xslice,Yslice,phi(:,:,15));
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('surf', 'C:\Program Files\MATLAB\R2016a\toolbox\matlab\graph3d\surf.m', 74)" style="font-weight:bold">surf</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2016a\toolbox\matlab\graph3d\surf.m',74,0)">line 74</a>)
+Data dimensions must agree.
+} 
+surf(phi(:,:,15));
+axis tight
+view(2)
+x = 0:1:30;
+x = 0:1:29;
+y = 0:1:109;
+surf(x',y',phi(:,:,15));
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('surf', 'C:\Program Files\MATLAB\R2016a\toolbox\matlab\graph3d\surf.m', 74)" style="font-weight:bold">surf</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2016a\toolbox\matlab\graph3d\surf.m',74,0)">line 74</a>)
+Data dimensions must agree.
+} 
+surf(x',y',phi(:,:,15))
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('surf', 'C:\Program Files\MATLAB\R2016a\toolbox\matlab\graph3d\surf.m', 74)" style="font-weight:bold">surf</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2016a\toolbox\matlab\graph3d\surf.m',74,0)">line 74</a>)
+Data dimensions must agree.
+} 
+[X,Y] = meshgrid(x,y);
+surf(X',Y',phi(:,:,15))
+axis tight
+view(2)
+subplot(2,1,1)
+surf(X',Y',phi(:,:,15))
+axis tight
+view(2)
+subplot(1,2,1)
+surf(X',Y',phi(:,:,15))
+view(2)
+set(h,'linestyle','none');
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.graphics.primitive.Surface/set')" style="font-weight:bold">matlab.graphics.primitive.Surface/set</a>
+Invalid or deleted object.
+} 
+subplot(1,2,1)
+s1 = surf(X',Y',phi(:,:,15));axis tight
+view(2)
+set(s1,'linestyle','none');
+xlabel('x');
+ylabel('y');
+title('Porosity');
+subplot(1,2,2)
+s2 = surf(X',Y',perm(:,:,15));
+axis tight
+view(2)
+set(s2,'linestyle','none');
+subplot(1,2,1)
+colorbar
+subplot(1,2,2)
+colorbar
+xlabel('x');
+ylabel('y');
+title('Permeability');
+subplot(1,2,1)
+axis equal
+subplot(1,2,2)
+axis equal
+D = 0.0004;
+k = (D^2 * (porosity.^3))./(180 * (1-porosity).^2);
+k = k ./ 1e-12;
+k;
+depth = linspace(0, 172, 141900);
+plot(k, depth)
+permdata = reshape(perm, 141900, 1);
+subplot(1,2,1)
+plot(k, depth)
+xlabel('Permeability');
+ylabel('Depth');
+set(gca, 'Ydir', 'reverse');
+title('Equation Permeability')
+subplot(1,2,2);
+plot(permdata, depth)
+xlabel('Permeability');
+ylabel('Depth');
+set(gca, 'Ydir', 'reverse');
+title('Data Permeability')
+diary off

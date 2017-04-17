@@ -1,0 +1,17 @@
+x = [0.05 0.15 0.3 0.5]; % Vector of mole fractions
+N = length(x);
+k = zeros(N,N);
+[a1 b1 dadt1 A1 B1] = PR_parameters(1e5,300,[369.8 4.246e6 0.152]); % Propane
+[a2 b2 dadt2 A2 B2] = PR_parameters(1e5,300,[425.2 3.8e6 0.193]); % n-Butane
+[a3 b3 dadt3 A3 B3] = PR_parameters(1e5,300,[507.4 2.969e6 0.293]); % n-Hexane
+[a4 b4 dadt4 A4 B4] = PR_parameters(1e5,300,[568.8 2.482e6 0.394]); % n-Octane
+Av = [A1 A2 A3 A4]; % Vector of A
+Bv = [B1 B2 B3 B4]; % Vector of B
+[fug,Z_v] = fugacity_mix_vap(Av,Bv,k,x,1e5)
+[a1 b1 dadt1 A1 B1] = PR_parameters(1e6,300,[369.8 4.246e6 0.152]); % Propane
+[a2 b2 dadt2 A2 B2] = PR_parameters(1e6,300,[425.2 3.8e6 0.193]); % n-Butane
+[a3 b3 dadt3 A3 B3] = PR_parameters(1e6,300,[507.4 2.969e6 0.293]); % n-Hexane
+[a4 b4 dadt4 A4 B4] = PR_parameters(1e6,300,[568.8 2.482e6 0.394]); % n-Octane
+Av = [A1 A2 A3 A4]; % Vector of A
+Bv = [B1 B2 B3 B4]; % Vector of B
+[fug,Z_v] = fugacity_mix_vap(Av,Bv,k,x,1e6)

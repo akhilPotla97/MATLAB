@@ -1,0 +1,3 @@
+echo "Type name of program to run"
+read $program_name
+"C:/Program Files/MATLAB/R2016a/bin/matlab.exe" -r $program_name
